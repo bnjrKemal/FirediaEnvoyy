@@ -1,0 +1,8 @@
+prefix: '§2Envoy§aEvent §f»'
+started-event: '{prefix} §eEnvoy event başladı. Ada başlarına envoy düşürülüyor..'
+sent-event: '{prefix} §eAda başına envoy düşürüldü!'
+finished-event: '{prefix} §eEnvoy event bitmiştir..'
+reload: '{prefix} §aConfig.yml yenilendi.'
+reload-rewards: '{prefix} §cÖdüller güncellendi.'
+
+items:

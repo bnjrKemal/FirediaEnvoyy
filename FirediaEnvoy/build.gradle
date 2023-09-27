@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+}
+
+group = 'FirediaEnvoy'
+version = '2.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven { //ASkyBlock
+        url = 'https://repo.codemc.org/repository/maven-public'
+    }
+    maven { //SuperiorSkyblock2
+        url 'https://repo.bg-software.com/repository/api/'
+    }
+    maven { //FabledSkyblock
+        url 'https://repo.songoda.com/repository/public/'
+    }
+    maven { //IridiumSkyblock
+        url 'https://nexus.iridiumdevelopment.net/repository/maven-releases/'
+    }
+    maven { //Bentobox
+        url 'https://repo.codemc.org/repository/maven-public/'
+    }
+    maven { //CalenderEvents
+        url 'https://repo.nikl.me/artifactory/repositories'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'com.wasteofplastic:askyblock:3.0.9.4' //ASkyBlock
+    compileOnly 'com.bgsoftware:SuperiorSkyblockAPI:2022.9' //SuperiorSkyblock2
+    implementation 'com.songoda:skyblock:2.3.30' //FabledSkyblock
+    compileOnly 'com.iridium:IridiumSkyblock:3.2.8' //IridiumSkyblock
+    compileOnly 'world.bentobox:bentobox:1.16.2-SNAPSHOT' //Bentobox
+    compileOnly 'com.googlecode.json-simple:json-simple:1.1.1' //license
+    compileOnly 'me.nikl.calendarevents:CalendarEvents:1.4.0' //CalenderEvents
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}

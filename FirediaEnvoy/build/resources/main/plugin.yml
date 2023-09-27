@@ -1,0 +1,7 @@
+name: FirediaEnvoy
+version: '2.0'
+main: firediaenvoy.firediaenvoy.FirediaEnvoy
+commands:
+  firediaenvoy:
+    permission: op
+    permission-message: '&2Envoy§aEvent &f» &cYetkin yok.'
